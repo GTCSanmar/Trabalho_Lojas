@@ -35,7 +35,6 @@ def handle_filial(conn, addr, id_filial):
                     elif tipo == "COMPRA":
                         totais["compras"] += valor
                         total_compras += valor
-            # Confirma recebimento
             conn.sendall(b"OK\n")
     except:
         pass
@@ -54,7 +53,6 @@ def main():
         id_filial = 1
         threads = []
 
-        # Aceita 5 filiais
         while id_filial <= 5:
             conn, addr = s.accept()
             t = threading.Thread(target=handle_filial, args=(conn, addr, id_filial))
@@ -62,7 +60,6 @@ def main():
             threads.append(t)
             id_filial += 1
 
-        # Espera todas terminarem
         for t in threads:
             t.join()
 
@@ -73,3 +70,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
